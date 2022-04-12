@@ -114,6 +114,16 @@
             app:layout_constraintTop_toBottomOf="@id/linearInputNumber"
             app:layout_constraintBottom_toTopOf="@id/buttonGetOPT"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/buttonGetOPT"
+            app:layout_constraintBottom_toBottomOf="@id/buttonGetOPT"/>
+
         <Button
             android:id="@+id/buttonGetOPT"
             android:layout_width="match_parent"

@@ -57,9 +57,8 @@
             android:id="@+id/textMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_max"
+            android:layout_marginTop="8dp"
             android:textColor="@color/textPrimary"
-            android:text="Ingresa el OTP"
             android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -174,7 +173,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearInputOTP"
-            app:layout_constraintBottom_toTopOf="">
+            app:layout_constraintBottom_toTopOf="@id/buttonVerify">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
