@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Generar QR</string>
+    <string name="generate_qr">Generar QR</string>
+    <string name="generate_new_qr">Generar nuevo QR</string>
+    <string name="qr">QR</string>
+    <string name="tvOk">QR leido correctamente :)</string>
+</resources>

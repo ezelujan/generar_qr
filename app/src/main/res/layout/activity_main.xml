@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewTop"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGenerateQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="@string/generate_qr"
+        android:textColor="#212121"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/viewTop"
+        app:layout_constraintEnd_toEndOf="@id/viewTop"
+        app:layout_constraintStart_toStartOf="@id/viewTop"
+        app:layout_constraintTop_toTopOf="@id/viewTop" />
+
+    <ImageView
+        android:id="@+id/imgQR"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:background="#10000000"
+        android:contentDescription="@string/qr"
+        app:layout_constraintBottom_toTopOf="@+id/viewBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTop" />
+
+    <View
+        android:id="@+id/viewOk"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/border_radius"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/tvOk"
+        app:layout_constraintEnd_toEndOf="@id/tvOk"
+        app:layout_constraintTop_toTopOf="@id/tvOk"
+        app:layout_constraintBottom_toBottomOf="@id/tvOk"/>
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvOk"
+        android:textSize="@dimen/common_padding_middle"
+        android:padding="@dimen/common_padding_middle"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/viewBottom"
+        app:layout_constraintEnd_toEndOf="@+id/imgQR"
+        app:layout_constraintStart_toStartOf="@+id/imgQR"
+        app:layout_constraintTop_toTopOf="@+id/imgQR"
+        tools:ignore="SpUsage" />
+
+    <View
+        android:id="@+id/viewBottom"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGenerateNewQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="@string/generate_new_qr"
+        android:textColor="#212121"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/viewBottom"
+        app:layout_constraintStart_toStartOf="@+id/viewBottom"
+        app:layout_constraintTop_toTopOf="@id/viewBottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
