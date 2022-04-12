@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23425925925925925" />
         <entry key="app/src/main/res/layout/activity_send_otpactivity.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/activity_verify_otpactivity.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/animator_motion_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/border_radius.xml" value="0.2578125" />
       </map>
