@@ -191,6 +191,16 @@
                 android:textColor="@color/accent"/>
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/buttonVerify"
+            app:layout_constraintBottom_toBottomOf="@id/buttonVerify"/>
+
         <Button
             android:id="@+id/buttonVerify"
             android:layout_width="match_parent"

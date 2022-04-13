@@ -5,15 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import com.ezedev.generarqr.databinding.ActivityVerifyOtpactivityBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthProvider
 
 class VerifyOTPActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerifyOtpactivityBinding
+    private lateinit var verificationId: String
+    private var tag = "VerifyOTPActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,19 +34,50 @@ class VerifyOTPActivity : AppCompatActivity() {
     }
 
     private fun clickButtonVerify() {
-        binding.buttonVerify.setOnClickListener {
+        val inputOTP1 = binding.inputOTP1
+        val inputOTP2 = binding.inputOTP2
+        val inputOTP3 = binding.inputOTP3
+        val inputOTP4 = binding.inputOTP4
+        val inputOTP5 = binding.inputOTP5
+        val inputOTP6 = binding.inputOTP6
+        val progressBar = binding.progressBar
+        val buttonVerify = binding.buttonVerify
+        verificationId = intent.getStringExtra("verificationId").toString()
+
+        buttonVerify.setOnClickListener {
             if (
-                binding.inputOTP1.text.toString().trim().isEmpty() ||
-                binding.inputOTP2.text.toString().trim().isEmpty() ||
-                binding.inputOTP3.text.toString().trim().isEmpty() ||
-                binding.inputOTP4.text.toString().trim().isEmpty() ||
-                binding.inputOTP5.text.toString().trim().isEmpty() ||
-                binding.inputOTP6.text.toString().trim().isEmpty()
+                inputOTP1.text.toString().trim().isEmpty() ||
+                inputOTP2.text.toString().trim().isEmpty() ||
+                inputOTP3.text.toString().trim().isEmpty() ||
+                inputOTP4.text.toString().trim().isEmpty() ||
+                inputOTP5.text.toString().trim().isEmpty() ||
+                inputOTP6.text.toString().trim().isEmpty()
             ) {
                 Toast.makeText(applicationContext, "Ingresa el código", Toast.LENGTH_SHORT).show()
             } else {
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
+                val code = "${inputOTP1.text}${inputOTP2.text}${inputOTP3.text}${inputOTP4.text}${inputOTP5.text}${inputOTP6.text}"
+                progressBar.visibility = View.VISIBLE
+                buttonVerify.visibility = View.INVISIBLE
+                val credential = PhoneAuthProvider.getCredential(verificationId, code)
+                FirebaseAuth
+                    .getInstance()
+                    .signInWithCredential(credential)
+                    .addOnCompleteListener { task ->
+                        progressBar.visibility = View.GONE
+                        buttonVerify.visibility = View.VISIBLE
+                        if (task.isSuccessful) {
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        } else {
+                            Log.w(tag, "signInWithCredential:failure", task.exception)
+                            if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(this, "El codigo ingresado es invalido", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this, (task.exception as FirebaseAuthInvalidCredentialsException).message, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
             }
         }
     }

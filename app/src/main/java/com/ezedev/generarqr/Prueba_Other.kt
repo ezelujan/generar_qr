@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.ezedev.generarqr.databinding.ActivityMainBinding
 import com.ezedev.generarqr.databinding.ActivityPruebaOtherBinding
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
