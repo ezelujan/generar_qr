@@ -54,7 +54,6 @@ class SendOTPActivity : AppCompatActivity() {
                             } else if (e is FirebaseTooManyRequestsException) {
                                 Log.w(tag, "The SMS quota for the project has been exceeded", e)
                             }
-                            // Show a message and update the UI
                             progressBar.visibility = View.GONE
                             buttonGetOTP.visibility = View.VISIBLE
                             Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
@@ -64,7 +63,6 @@ class SendOTPActivity : AppCompatActivity() {
                             verificationId: String,
                             token: PhoneAuthProvider.ForceResendingToken
                         ) {
-                            // Save verification ID and resending token so we can use them later
                             val storedVerificationId = verificationId
                             val resendToken = token
                             progressBar.visibility = View.GONE
