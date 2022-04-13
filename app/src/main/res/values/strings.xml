@@ -4,4 +4,15 @@
     <string name="generate_new_qr">Generar nuevo QR</string>
     <string name="qr">QR</string>
     <string name="tvOk">QR leido correctamente :)</string>
+    <string name="titleLogin">Login to Generate QR</string>
+    <string name="descriptionLogin">Nosotros te enviaremos un SMS como password a tu número de celular</string>
+    <string name="tvInputNumber">Ingresa el número de celular</string>
+    <string name="inputNumberHint">1234567890</string>
+    <string name="_57">+57-</string>
+    <string name="buttonLogin">Enviar SMS</string>
+    <string name="tvOTPDescription">Ingresa el OTP enviado</string>
+    <string name="titleOTP">Verificación OTP</string>
+    <string name="no_recibes_el_otp">¿No recibes el OTP?</string>
+    <string name="resend">Reenviar</string>
+    <string name="buttonVerify">Verificar</string>
 </resources>
