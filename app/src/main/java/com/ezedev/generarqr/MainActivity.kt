@@ -1,6 +1,5 @@
 package com.ezedev.generarqr
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,9 +20,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import java.io.IOException
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private var auth: FirebaseAuth = Firebase.auth
     private var db = FirebaseFirestore.getInstance()
