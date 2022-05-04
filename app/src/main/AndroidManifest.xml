@@ -13,11 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GenerarQR">
         <activity
-            android:name=".Prueba_Other"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".VerifyOTPActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
