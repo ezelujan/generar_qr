@@ -1,5 +1,6 @@
 package com.ezedev.generarqr
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,8 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import java.io.IOException
 import java.util.*
 
 
@@ -22,23 +28,49 @@ class MainActivity : AppCompatActivity() {
     private var auth: FirebaseAuth = Firebase.auth
     private var db = FirebaseFirestore.getInstance()
     private val tag = "activity_main"
-    private var firstInfo = hashMapOf("https://www.coordinadora.com/" to 15000)
-    private var otherInfo = hashMapOf(
-        "https://www.google.com/" to 38000,
-        "https://www.facebook.com/" to 240000,
-        "https://www.gmail.com/" to 23000,
-        "https://www.instagram.com/" to 65000,
-        "https://www.twitter.com/" to 90000,
-        "https://www.twitch.com/" to 792000,
-        "https://ezedev.netlify.app/" to 430000,
-        "https://material.io/" to 560000
-    )
+    private val options = FirebaseVisionBarcodeDetectorOptions.Builder()
+        .setBarcodeFormats(
+            FirebaseVisionBarcode.FORMAT_QR_CODE,
+            FirebaseVisionBarcode.FORMAT_CODE_128)
+        .build()
+    private val detector = FirebaseVision.getInstance().getVisionBarcodeDetector(options)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         authentication()
+        manageButtonsQr()
+        firebaseBarcode()
+    }
+
+    private fun firebaseBarcode() {
+        binding.btnBarCode.setOnClickListener {
+            val bitmap = BarcodeEncoder().encodeBitmap(
+                "${(1000000..9999999).random()}",
+                BarcodeFormat.CODE_128,
+                400,
+                400
+            )
+            try {
+                val image = FirebaseVisionImage.fromBitmap(bitmap)
+                detector.detectInImage(image)
+                    .addOnSuccessListener { barcodes ->
+                        for (barcode in barcodes) {
+                            val rawValue = barcode.rawValue
+                            Log.d(tag, "Barcode value: $rawValue")
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d(tag, "Barcode detection failed: $e")
+                    }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun manageButtonsQr() {
         binding.btnGenerateQR.setOnClickListener {
             binding.loading.visibility = View.VISIBLE
             val idCode = (100000..999999).random().toString()
@@ -47,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             generateQR(url) { result ->
                 binding.imgQR.setBackgroundColor(0)
                 binding.loading.visibility = View.INVISIBLE
-                binding.btnGenerateQR.visibility = View.INVISIBLE
+                binding.btnGenerateQR.visibility = View.GONE
                 binding.btnGenerateNewQR.visibility = View.VISIBLE
                 setDocumentFs(url, payment, idCode)
                 onSnapshotPayment(idCode)

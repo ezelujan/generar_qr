@@ -31,8 +31,22 @@
         android:textColor="#212121"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/viewTop"
-        app:layout_constraintEnd_toEndOf="@id/viewTop"
+        app:layout_constraintEnd_toStartOf="@id/btnBarCode"
         app:layout_constraintStart_toStartOf="@id/viewTop"
+        app:layout_constraintTop_toTopOf="@id/viewTop" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBarCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="Codigo de barras"
+        android:textColor="#212121"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/viewTop"
+        app:layout_constraintEnd_toEndOf="@id/viewTop"
+        app:layout_constraintStart_toEndOf="@id/btnGenerateQR"
         app:layout_constraintTop_toTopOf="@id/viewTop" />
 
     <ImageView
