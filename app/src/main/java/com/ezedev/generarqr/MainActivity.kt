@@ -1,5 +1,6 @@
 package com.ezedev.generarqr
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,6 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.content.ContextCompat
 import com.ezedev.generarqr.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var auth: FirebaseAuth = Firebase.auth
     private var db = FirebaseFirestore.getInstance()
-    private val tag = "activity_main"
+    private val tag = "MainActivity.kt"
     private val options = FirebaseVisionBarcodeDetectorOptions.Builder()
         .setBarcodeFormats(
             FirebaseVisionBarcode.FORMAT_QR_CODE,
@@ -44,7 +49,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun firebaseBarcode() {
         binding.btnBarCode.setOnClickListener {
-            val bitmap = BarcodeEncoder().encodeBitmap(
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+            /*val bitmap = BarcodeEncoder().encodeBitmap(
                 "${(1000000..9999999).random()}",
                 BarcodeFormat.CODE_128,
                 400,
@@ -66,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     }
             } catch (e: IOException) {
                 e.printStackTrace()
-            }
+            }*/
         }
     }
 

@@ -4,4 +4,5 @@
     <dimen name="common_padding_default">16dp</dimen>
     <dimen name="common_padding_middle">24dp</dimen>
     <dimen name="common_padding_max">32dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

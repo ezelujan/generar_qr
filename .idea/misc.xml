@@ -7,12 +7,15 @@
         <entry key="app/src/main/res/drawable/background_button.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_radius.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1335" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23796296296296296" />
+        <entry key="app/src/main/res/layout/activity_camera.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_prueba_other.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_send_otpactivity.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_verify_otpactivity.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/animator_motion_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/border_radius.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/content_camera.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2578125" />
       </map>
     </option>
   </component>
