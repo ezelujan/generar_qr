@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="Codigo de barras"
+        android:text="@string/open_camera"
         android:textColor="#212121"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/viewTop"

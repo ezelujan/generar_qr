@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var auth: FirebaseAuth = Firebase.auth
     private var db = FirebaseFirestore.getInstance()
-    private val tag = "MainActivity.kt"
     private val options = FirebaseVisionBarcodeDetectorOptions.Builder()
         .setBarcodeFormats(
             FirebaseVisionBarcode.FORMAT_QR_CODE,
@@ -44,37 +43,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         authentication()
         manageButtonsQr()
-        firebaseBarcode()
     }
 
     private fun firebaseBarcode() {
-        binding.btnBarCode.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
-            /*val bitmap = BarcodeEncoder().encodeBitmap(
-                "${(1000000..9999999).random()}",
-                BarcodeFormat.CODE_128,
-                400,
-                400
-            )
-            try {
-                val image = FirebaseVisionImage.fromBitmap(bitmap)
-                detector.detectInImage(image)
-                    .addOnSuccessListener { barcodes ->
-                        for (barcode in barcodes) {
-                            val rawValue = barcode.rawValue
-                            Toast.makeText(this, "Barcode value: $rawValue", Toast.LENGTH_SHORT).show()
-                            Log.d(tag, "Barcode value: $rawValue")
-                        }
+        /*val bitmap = BarcodeEncoder().encodeBitmap(
+            "${(1000000..9999999).random()}",
+            BarcodeFormat.CODE_128,
+            400,
+            400
+        )
+        try {
+            val image = FirebaseVisionImage.fromBitmap(bitmap)
+            detector.detectInImage(image)
+                .addOnSuccessListener { barcodes ->
+                    for (barcode in barcodes) {
+                        val rawValue = barcode.rawValue
+                        Toast.makeText(this, "Barcode value: $rawValue", Toast.LENGTH_SHORT).show()
+                        Log.d(Constants.TAG, "Barcode value: $rawValue")
                     }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Barcode detection failed: $e", Toast.LENGTH_SHORT).show()
-                        Log.d(tag, "Barcode detection failed: $e")
-                    }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }*/
-        }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Barcode detection failed: $e", Toast.LENGTH_SHORT).show()
+                    Log.d(Constants.TAG, "Barcode detection failed: $e")
+                }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }*/
     }
 
     private fun manageButtonsQr() {
@@ -90,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 binding.btnGenerateNewQR.visibility = View.VISIBLE
                 setDocumentFs(url, payment, idCode)
                 onSnapshotPayment(idCode)
-                Log.d(tag, result.toString())
+                Log.d(Constants.TAG, result.toString())
             }
         }
         binding.btnGenerateNewQR.setOnClickListener {
@@ -103,8 +97,12 @@ class MainActivity : AppCompatActivity() {
                 binding.loading.visibility = View.INVISIBLE
                 setDocumentFs(url, payment, idCode)
                 onSnapshotPayment(idCode)
-                Log.d(tag, result.toString())
+                Log.d(Constants.TAG, result.toString())
             }
+        }
+        binding.btnBarCode.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -112,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         val docRef = db.collection("Pagos").document(idCode)
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
-                Log.w(tag, "Listen failed.", e)
+                Log.w(Constants.TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
             if (snapshot != null && snapshot.exists()) {
@@ -122,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                     binding.imgQR.setImageResource(0)
                 }
             } else {
-                Log.d(tag, "Current data: null")
+                Log.d(Constants.TAG, "Current data: null")
             }
         }
     }
@@ -160,12 +158,12 @@ class MainActivity : AppCompatActivity() {
                     db.runBatch { batch ->
                         batch.set(subPaymentsRef, modelSubCollection)
                     }.addOnSuccessListener {
-                        Log.d(tag,"Batch completed")
+                        Log.d(Constants.TAG,"Batch completed")
                         subPaymentsRef.get().addOnSuccessListener { doc ->
                             paymentsRef.update("id", doc.id)
                         }
                     }.addOnFailureListener {
-                        Log.w(tag, "Error execute batch", it)
+                        Log.w(Constants.TAG, "Error execute batch", it)
                     }
                 } else {
                     Log.w("No existe doc", "No existe el documento, se guardará uno nuevo")
@@ -173,16 +171,16 @@ class MainActivity : AppCompatActivity() {
                         batch.set(paymentsRef, model)
                         batch.set(subPaymentsRef, modelSubCollection)
                     }.addOnSuccessListener {
-                        Log.d(tag,"Batch completed")
+                        Log.d(Constants.TAG,"Batch completed")
                         subPaymentsRef.get().addOnSuccessListener { doc ->
                             paymentsRef.update("id", doc.id)
                         }
                     }.addOnFailureListener {
-                        Log.w(tag, "Error execute batch", it)
+                        Log.w(Constants.TAG, "Error execute batch", it)
                     }
                 }
             }.addOnFailureListener {
-                Log.w(tag, "Get document failed with", it)
+                Log.w(Constants.TAG, "Get document failed with", it)
             }
     }
 
@@ -191,13 +189,13 @@ class MainActivity : AppCompatActivity() {
             .signInWithEmailAndPassword("it@coordinadora.com", "leqhddce")
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d(tag, "Autenticacion exitosa")
+                    Log.d(Constants.TAG, "Autenticacion exitosa")
                 } else {
-                    Log.w(tag, "Falló la autenticacion")
+                    Log.w(Constants.TAG, "Falló la autenticacion")
                 }
             }
             .addOnFailureListener {
-                Log.w(tag, "Falló la conexión para autenticarse $it")
+                Log.w(Constants.TAG, "Falló la conexión para autenticarse $it")
             }
     }
 
