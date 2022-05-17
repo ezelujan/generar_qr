@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ezedev.generarqr.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -55,10 +56,12 @@ class MainActivity : AppCompatActivity() {
                     .addOnSuccessListener { barcodes ->
                         for (barcode in barcodes) {
                             val rawValue = barcode.rawValue
+                            Toast.makeText(this, "Barcode value: $rawValue", Toast.LENGTH_SHORT).show()
                             Log.d(tag, "Barcode value: $rawValue")
                         }
                     }
                     .addOnFailureListener { e ->
+                        Toast.makeText(this, "Barcode detection failed: $e", Toast.LENGTH_SHORT).show()
                         Log.d(tag, "Barcode detection failed: $e")
                     }
             } catch (e: IOException) {
