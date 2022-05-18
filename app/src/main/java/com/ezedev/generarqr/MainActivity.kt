@@ -6,12 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
 import com.ezedev.generarqr.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,10 +15,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import java.io.IOException
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,32 +36,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         authentication()
         manageButtonsQr()
-    }
-
-    private fun firebaseBarcode() {
-        /*val bitmap = BarcodeEncoder().encodeBitmap(
-            "${(1000000..9999999).random()}",
-            BarcodeFormat.CODE_128,
-            400,
-            400
-        )
-        try {
-            val image = FirebaseVisionImage.fromBitmap(bitmap)
-            detector.detectInImage(image)
-                .addOnSuccessListener { barcodes ->
-                    for (barcode in barcodes) {
-                        val rawValue = barcode.rawValue
-                        Toast.makeText(this, "Barcode value: $rawValue", Toast.LENGTH_SHORT).show()
-                        Log.d(Constants.TAG, "Barcode value: $rawValue")
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Barcode detection failed: $e", Toast.LENGTH_SHORT).show()
-                    Log.d(Constants.TAG, "Barcode detection failed: $e")
-                }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }*/
     }
 
     private fun manageButtonsQr() {

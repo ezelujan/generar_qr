@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -33,7 +30,7 @@ class CameraActivity : AppCompatActivity() {
 
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
-        
+
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -47,6 +44,32 @@ class CameraActivity : AppCompatActivity() {
         binding.btnTakePhoto.setOnClickListener {
             takePhoto()
         }
+    }
+
+    private fun firebaseBarcode() {
+        /*val bitmap = BarcodeEncoder().encodeBitmap(
+            "${(1000000..9999999).random()}",
+            BarcodeFormat.CODE_128,
+            400,
+            400
+        )
+        try {
+            val image = FirebaseVisionImage.fromBitmap(bitmap)
+            detector.detectInImage(image)
+                .addOnSuccessListener { barcodes ->
+                    for (barcode in barcodes) {
+                        val rawValue = barcode.rawValue
+                        Toast.makeText(this, "Barcode value: $rawValue", Toast.LENGTH_SHORT).show()
+                        Log.d(Constants.TAG, "Barcode value: $rawValue")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Barcode detection failed: $e", Toast.LENGTH_SHORT).show()
+                    Log.d(Constants.TAG, "Barcode detection failed: $e")
+                }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }*/
     }
 
     private fun getOutputDirectory(): File {
@@ -73,6 +96,7 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    Log.d("aqui2", binding.viewFinder.bitmap.toString())
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(this@CameraActivity, msg, Toast.LENGTH_SHORT).show()
